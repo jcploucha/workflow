@@ -1,0 +1,9 @@
+{
+	"devDependencies": {
+		"grunt": "latest",
+		"jshint-stylish": "latest",
+		"grunt-contrib-sass": "latest", 
+		"grunt-contrib-jshint": "latest",
+		"grunt-contrib-watch": "latest" 
+	}
+}
