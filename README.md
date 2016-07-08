@@ -7,11 +7,11 @@ common files to ignore in this workflow
 
 ##### installation
 
-`npm install grunt`
+`$ npm install grunt`
 
 or 
 
-`npm install` if using `package.json`
+`$ npm install` if using `package.json`
 
 ##### tasks
 
@@ -26,7 +26,7 @@ or
 	* requires chrome livereload extension: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en 
 
 ##### usage
-`grunt`
+`$ grunt`
 
 ### package.json
 for use with grunt to install all dependencies
