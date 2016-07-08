@@ -1,3 +1,5 @@
+.gitignore
+
 # Bower
 .bowerrc
 bower.json
@@ -8,6 +10,7 @@ package.json
 # Grunt
 npm-debug.log
 node_modules
+Gruntfile.js
 
 # Logs
 .log
@@ -21,7 +24,6 @@ node_modules
 .sass-cache/
 .scssc
 *.map
-
 
 # Test files
 .test_files
