@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 			build: {
 				files: {
 					'app/public/css/home.css':'app/public/sass/home.scss',
-					'app/public/css/home_semantic.css':'app/public/sass/home_semantic.scss'
+					'app/public/css/testruns.css':'app/public/sass/testruns.scss',
 				}
 			}			
 		},
@@ -40,15 +40,161 @@ module.exports = function(grunt) {
 			}
 		},
 
+		jscs: {
+			src: 'app/public/js/**/*.js',
+			options: {
+				"fix": true,
+				"requireCurlyBraces": [
+					"if",
+					"else",
+					"for",
+					"while",
+					"do",
+					"try",
+					"catch"
+				],
+				"requireOperatorBeforeLineBreak": true,
+				"requireCamelCaseOrUpperCaseIdentifiers": {
+					"ignoreProperties": true,
+					"allowedPrefixes": [
+						"opt_"
+					],
+					"allExcept": [
+						"var_args",
+						"property_id",
+						"client_id",
+						"class_name",
+						{
+							"regex": {
+								"pattern": "bb_.*",
+								"flags": "i"
+							}
+						}
+					]
+				},
+				"maximumLineLength": {
+					"value": 160,
+					"allExcept": [
+						"comments"
+					]
+				},
+				"validateIndentation": "\t",
+				"validateQuoteMarks": "'",
+				"disallowMultipleLineStrings": true,
+				"disallowMixedSpacesAndTabs": true,
+				"disallowTrailingWhitespace": true,
+				"disallowSpaceAfterPrefixUnaryOperators": true,
+				"disallowMultipleVarDecl": true,
+				"disallowKeywordsOnNewLine": [
+					"else"
+				],
+				"requireSpaceAfterKeywords": [
+					"if",
+					"else",
+					"for",
+					"while",
+					"do",
+					"switch",
+					"return",
+					"try",
+					"catch"
+				],
+				"requireSpaceBeforeBinaryOperators": [
+					"=",
+					"+=",
+					"-=",
+					"*=",
+					"/=",
+					"%=",
+					"<<=",
+					">>=",
+					">>>=",
+					"&=",
+					"|=",
+					"^=",
+					"+=",
+					"+",
+					"-",
+					"*",
+					"/",
+					"%",
+					"<<",
+					">>",
+					">>>",
+					"&",
+					"|",
+					"^",
+					"&&",
+					"||",
+					"===",
+					"==",
+					">=",
+					"<=",
+					"<",
+					">",
+					"!=",
+					"!=="
+				],
+				"requireSpaceAfterBinaryOperators": true,
+				"requireSpacesInConditionalExpression": true,
+				"requireSpaceBeforeBlockStatements": true,
+				"requireSpacesInForStatement": true,
+				"requireLineFeedAtFileEnd": true,
+				"requireSpacesInFunctionExpression": {
+					"beforeOpeningCurlyBrace": true
+				},
+				"disallowSpacesInAnonymousFunctionExpression": {
+					"beforeOpeningRoundBrace": true
+				},
+				"disallowSpacesInsideObjectBrackets": "all",
+				"disallowSpacesInsideArrayBrackets": "all",
+				"disallowSpacesInsideParentheses": true,
+				"disallowMultipleLineBreaks": false,
+				"disallowNewlineBeforeBlockStatements": true,
+				"disallowKeywords": [
+					"with"
+				],
+				"disallowSpacesInFunctionExpression": {
+					"beforeOpeningRoundBrace": true
+				},
+				"disallowSpacesInFunctionDeclaration": {
+					"beforeOpeningRoundBrace": true
+				},
+				"disallowSpacesInCallExpression": true,
+				"disallowSpaceAfterObjectKeys": false,
+				"requireSpaceBeforeObjectValues": true,
+				"requireCapitalizedConstructors": true,
+				"requireDotNotation": true,
+				"requireSemicolons": true,
+				"validateParameterSeparator": ", ",
+				"jsDoc": {
+					"checkAnnotations": "closurecompiler",
+					"checkParamNames": true,
+					"requireParamTypes": true,
+					"checkRedundantParams": true,
+					"checkReturnTypes": true,
+					"checkRedundantReturns": true,
+					"requireReturnTypes": true,
+					"checkTypes": true,
+					"checkRedundantAccess": true,
+					"requireNewlineAfterDescription": true
+				}
+
+			}
+		},
+
 		watch: {
 			css: {
+				files: 'app/public/css/*.css'
+			},
+			sass: {
 				files: 'app/public/sass/*.scss',
-				tasks: 'sass'				
+				tasks: 'sass'
 			},
 			html: {
 				files: [
 					'app/views/*.haml', 
-					'app/views/*.erb', 					
+					'app/views/*.erb',
 				]
 			},
 			hbs: {
@@ -61,7 +207,7 @@ module.exports = function(grunt) {
 					'app/public/js/**/*.js',
 					'app/public/js/*.js'
 				],
-				tasks: 'jshint'
+				tasks: ['jshint','jscs']
 			},
 			options: {
 				spawn: false,
@@ -73,13 +219,15 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['watch'])
 
+	grunt.loadNpmTasks('grunt-jscs');
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	grunt.event.on('watch', function(action, filepath) {
-	  grunt.config('jshint.all.src', filepath);
+		grunt.config('jshint.all.src', filepath);
+		grunt.config('jscs.src', filepath);
 	});
 
 }
