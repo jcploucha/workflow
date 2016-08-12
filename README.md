@@ -1,5 +1,8 @@
 # workflow
 
+
+
+
 ### .gitignore
 common files to ignore in this workflow
 
@@ -20,6 +23,8 @@ or
 * sass: compiles sass file into a css file
 
 * jshint: lints javascript files
+
+* jscs: also lints javascript files
 
 * watch: watches css/html/handlebars/js files for changes on save and runs the appropriate task (e.g. save sass file > sass task is run) and reloads the browser
 

@@ -1,6 +1,8 @@
 {
 	"devDependencies": {
+		"jscs": "latest",
 		"grunt": "latest",
+		"grunt-jscs": "latest",
 		"jshint-stylish": "latest",
 		"grunt-contrib-sass": "latest", 
 		"grunt-contrib-jshint": "latest",
